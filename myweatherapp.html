@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Weather App</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      background-color: white;
+      color: black;
+    }
+    
+    body.clear-sky {
+        background-color: #75CFF0;
+        color: #FDB813;
+      }
+
+      body.sunny {
+        background-color: #FDB813;
+        color: #75CFF0;
+      }
+  
+      /* Cloudy / Overcast */
+      body.cloudy {
+        background-color: #D3D3D3;
+        color: #FFFFFF;
+      }
+  
+      /* Rainy */
+      body.rainy {
+        background-color: #708090;
+        color: #FFD700;
+      }
+  
+      /* Snowy */
+      body.snowy {
+        background-color: #FFFFFF;
+        color: #C0C0C0;
+      }
+  
+      /* Thunderstorm */
+      body.thunderstorm {
+        background-color: #363636;
+        color: #FFA500;
+      }
+  </style>
+</head>
+<body>
+  <h1>Weather App</h1>
+  <input type="text" id="cityInput" placeholder="Enter city">
+  <button id="searchButton">Search</button>
+  <div id="weatherInfo"></div>
+
+  <script>
+    const apiKey = '7924bf31d9284f72b10172357231006'; // Replace with your WeatherAPI.com API key
+
+    const searchButton = document.getElementById('searchButton');
+    searchButton.addEventListener('click', searchWeather);
+
+    const cityInput = document.getElementById('cityInput');
+    cityInput.addEventListener('keypress', function (event) {
+        if (event.key === 'Enter') {
+            searchWeather();
+        }
+    });
+
+    function searchWeather() {
+      const cityInput = document.getElementById('cityInput');
+      const city = cityInput.value;
+      if (city === '') {
+        alert('Please enter a city name.');
+        return;
+      }
+
+      const apiUrl = `https://api.weatherapi.com/v1/current.json?key=${apiKey}&q=${city}`;
+
+      fetch(apiUrl)
+        .then((response) => response.json())
+        .then((data) => {
+          if (data.error) {
+            alert('City not found. Please enter a valid city name.');
+            return;
+          }
+          const condition = data.current.condition.text; // Assuming the weather condition is available in `data`
+          updateBodyClass(condition);
+          const weatherInfo = document.getElementById('weatherInfo');
+          weatherInfo.innerHTML = `
+            <h2>${data.location.name}, ${data.location.region}, ${data.location.country}</h2>
+            <p>Temperature: ${data.current.temp_c}°C or ${data.current.temp_f}°F</p>
+            <p>Weather: ${data.current.condition.text}</p>
+            <p>Description: ${data.current.condition.text}</p>
+          `;
+        })
+        .catch((error) => {
+          console.log('An error occurred:', error);
+        });
+    }
+
+    function updateBodyClass(condition) {
+        document.body.className = '';
+        if (condition === 'Clear') {
+          document.body.classList.add('clear-sky');
+        } else if (condition === 'Partly cloudy') {
+          document.body.classList.add('cloudy');
+        } else if (condition === 'Cloudy') {
+            document.body.classList.add('cloudy');
+        } else if (condition === 'Overcast') {
+          document.body.classList.add('cloudy'); 
+        } else if (condition === 'Mist') {
+          document.body.classList.add('rainy');
+        } else if (condition === 'Patchy rain possible') {
+          document.body.classList.add('rainy');
+        } else if (condition === 'Patchy snow possible') {
+            document.body.classList.add('snowy');
+        } else if (condition === 'Patchy sleet possible') {
+            document.body.classList.add('snowy');
+        } else if (condition === 'Patchy freezing drizzle possible') {
+              document.body.classList.add('rainy');
+        } else if (condition === 'Thundery outbreaks possible') {
+            document.body.classList.add('thunderstorm'); 
+        } else if (condition === 'Blowing Snow') {
+            document.body.classList.add('snowy');
+        } else if (condition === 'Blizzard') {
+            document.body.classList.add('snowy');
+        } else if (condition === 'Fog') {
+            document.body.classList.add('cloudy');
+        } else if (condition === 'Freezing Fog') {
+            document.body.classList.add('cloudy');
+        } else if (condition === 'Patchy light drizzle') {
+              document.body.classList.add('rainy');
+        } else if (condition === 'Light drizzle') {
+            document.body.classList.add('rainy'); 
+        } else if (condition === 'Freezing drizzle') {
+            document.body.classList.add('rainy');
+        } else if (condition === 'Heavy freezing drizzle') {
+            document.body.classList.add('rainy');
+        } else if (condition === 'Patchy light rain') {
+            document.body.classList.add('rainy');
+        } else if (condition === 'Light rain') {
+            document.body.classList.add('rainy');
+        } else if (condition === 'Moderate rain at times') {
+              document.body.classList.add('rainy');
+        } else if (condition === 'Moderate rain') {
+            document.body.classList.add('rainy'); 
+        } else if (condition === 'Heavy rain at times') {
+            document.body.classList.add('rainy');
+        } else if (condition === 'Heavy rain') {
+            document.body.classList.add('rainy');
+        } else if (condition === 'Light freezing rain') {
+            document.body.classList.add('rainy');
+        } else if (condition === 'Moderate or heaving freezing rain') {
+            document.body.classList.add('rainy');
+        } else if (condition === 'Light sleet') {
+              document.body.classList.add('snowy');
+        } else if (condition === 'Moderate or heavy sleet') {
+            document.body.classList.add('snowy'); 
+        } else if (condition === 'Light sleet') {
+            document.body.classList.add('snowy');
+        } else if (condition === 'Moderate or heavy sleet') {
+            document.body.classList.add('snowy');
+        } else if (condition === 'Patchy light snow') {
+            document.body.classList.add('snowy');
+        } else if (condition === 'Light snow') {
+            document.body.classList.add('snowy');
+        } else if (condition === 'Patchy moderate snow') {
+            document.body.classList.add('snowy');
+        } else if (condition === 'Moderate snow') {
+              document.body.classList.add('snowy');
+        } else if (condition === 'Patchy heavy snow') {
+            document.body.classList.add('snowy'); 
+        } else if (condition === 'Ice pellets') {
+            document.body.classList.add('rainy');
+        } else if (condition === 'Light rain shower') {
+            document.body.classList.add('rainy');
+        } else if (condition === 'Moderate or heavy rain shower') {
+            document.body.classList.add('rainy');
+        } else if (condition === 'Torrential rain shower') {
+            document.body.classList.add('rainy');
+        } else if (condition === 'Light sleet showers') {
+            document.body.classList.add('rainy');
+        } else if (condition === 'Moderate or heavy sleet showers') {
+              document.body.classList.add('rainy');
+        } else if (condition === 'Light snow showers') {
+            document.body.classList.add('snowy'); 
+        } else if (condition === 'Moderate or heavy snow showers') {
+            document.body.classList.add('snowy');
+        } else if (condition === 'Light showers of ice pellets') {
+            document.body.classList.add('snowy');
+        } else if (condition === 'Moderate or heavy showers of ice pellets') {
+            document.body.classList.add('rainy');
+        } else if (condition === 'Patchy light rain with thunder') {
+            document.body.classList.add('thunderstorm');
+        } else if (condition === 'Moderate or heavy rain with thunder') {
+            document.body.classList.add('thunderstorm');
+        } else if (condition === 'Patchy light snow with thunder') {
+              document.body.classList.add('snowy');
+        } else if (condition === 'Moderate or heavy snow with thunder') {
+            document.body.classList.add('snowy'); 
+        }
+    }
+  </script>
+</body>
+</html>
