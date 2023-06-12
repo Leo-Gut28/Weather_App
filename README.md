@@ -6,5 +6,6 @@ This is a simple app that uses the WeatherAPI to get the current temperature of 
 ![](https://github.com/Leo-Gut28/Weather_App/blob/main/WebVersion.gif)
 
 
-
+## Android Studio Version
+![](https://github.com/Leo-Gut28/Weather_App/blob/main/AndroidStudio.gif)
 
