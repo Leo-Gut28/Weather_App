@@ -9,7 +9,7 @@
       background-color: white;
       color: black;
     }
-    
+
     body.clear-sky {
         background-color: #75CFF0;
         color: #FDB813;
@@ -19,25 +19,25 @@
         background-color: #FDB813;
         color: #75CFF0;
       }
-  
+
       /* Cloudy / Overcast */
       body.cloudy {
         background-color: #D3D3D3;
         color: #FFFFFF;
       }
-  
+
       /* Rainy */
       body.rainy {
         background-color: #708090;
         color: #FFD700;
       }
-  
+
       /* Snowy */
       body.snowy {
         background-color: #FFFFFF;
         color: #C0C0C0;
       }
-  
+
       /* Thunderstorm */
       body.thunderstorm {
         background-color: #363636;
@@ -81,8 +81,18 @@
             alert('City not found. Please enter a valid city name.');
             return;
           }
-          const condition = data.current.condition.text; // Assuming the weather condition is available in `data`
+          const condition = data.current.condition.text;
           updateBodyClass(condition);
+
+          // Insert the image for cloudy weather
+          if (condition === 'Partly Cloudy') {
+            const cloudyImage = document.createElement('img');
+            cloudyImage.src = 'WebPictures/cloudy.png'; // Replace with the correct file path
+            cloudyImage.alt = 'Cloudy Weather Image';
+            const weatherInfo = document.getElementById('weatherInfo');
+            weatherInfo.appendChild(cloudyImage);
+          }
+
           const weatherInfo = document.getElementById('weatherInfo');
           weatherInfo.innerHTML = `
             <h2>${data.location.name}, ${data.location.region}, ${data.location.country}</h2>
@@ -105,7 +115,7 @@
         } else if (condition === 'Cloudy') {
             document.body.classList.add('cloudy');
         } else if (condition === 'Overcast') {
-          document.body.classList.add('cloudy'); 
+          document.body.classList.add('cloudy');
         } else if (condition === 'Mist') {
           document.body.classList.add('rainy');
         } else if (condition === 'Patchy rain possible') {
@@ -117,7 +127,7 @@
         } else if (condition === 'Patchy freezing drizzle possible') {
               document.body.classList.add('rainy');
         } else if (condition === 'Thundery outbreaks possible') {
-            document.body.classList.add('thunderstorm'); 
+            document.body.classList.add('thunderstorm');
         } else if (condition === 'Blowing Snow') {
             document.body.classList.add('snowy');
         } else if (condition === 'Blizzard') {
@@ -129,7 +139,7 @@
         } else if (condition === 'Patchy light drizzle') {
               document.body.classList.add('rainy');
         } else if (condition === 'Light drizzle') {
-            document.body.classList.add('rainy'); 
+            document.body.classList.add('rainy');
         } else if (condition === 'Freezing drizzle') {
             document.body.classList.add('rainy');
         } else if (condition === 'Heavy freezing drizzle') {
@@ -141,7 +151,7 @@
         } else if (condition === 'Moderate rain at times') {
               document.body.classList.add('rainy');
         } else if (condition === 'Moderate rain') {
-            document.body.classList.add('rainy'); 
+            document.body.classList.add('rainy');
         } else if (condition === 'Heavy rain at times') {
             document.body.classList.add('rainy');
         } else if (condition === 'Heavy rain') {
@@ -153,7 +163,7 @@
         } else if (condition === 'Light sleet') {
               document.body.classList.add('snowy');
         } else if (condition === 'Moderate or heavy sleet') {
-            document.body.classList.add('snowy'); 
+            document.body.classList.add('snowy');
         } else if (condition === 'Light sleet') {
             document.body.classList.add('snowy');
         } else if (condition === 'Moderate or heavy sleet') {
@@ -167,7 +177,7 @@
         } else if (condition === 'Moderate snow') {
               document.body.classList.add('snowy');
         } else if (condition === 'Patchy heavy snow') {
-            document.body.classList.add('snowy'); 
+            document.body.classList.add('snowy');
         } else if (condition === 'Ice pellets') {
             document.body.classList.add('rainy');
         } else if (condition === 'Light rain shower') {
@@ -181,7 +191,7 @@
         } else if (condition === 'Moderate or heavy sleet showers') {
               document.body.classList.add('rainy');
         } else if (condition === 'Light snow showers') {
-            document.body.classList.add('snowy'); 
+            document.body.classList.add('snowy');
         } else if (condition === 'Moderate or heavy snow showers') {
             document.body.classList.add('snowy');
         } else if (condition === 'Light showers of ice pellets') {
@@ -195,7 +205,7 @@
         } else if (condition === 'Patchy light snow with thunder') {
               document.body.classList.add('snowy');
         } else if (condition === 'Moderate or heavy snow with thunder') {
-            document.body.classList.add('snowy'); 
+            document.body.classList.add('snowy');
         }
     }
   </script>
