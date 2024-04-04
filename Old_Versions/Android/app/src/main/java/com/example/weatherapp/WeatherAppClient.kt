@@ -13,7 +13,7 @@ import java.net.URL
 
 class WeatherApiClient : AsyncTask<String, Void, String>() {
 
-    private val API_KEY = "7924bf31d9284f72b10172357231006"
+    private val API_KEY = "YOUR_API_KEY"
     private val API_BASE_URL = "https://api.weatherapi.com/v1/current.json?key=$API_KEY"
 
     private var listener: WeatherListener? = null
